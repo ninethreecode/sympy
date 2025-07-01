@@ -23,6 +23,7 @@ if TYPE_CHECKING:
         TribonacciConstant as _TribonacciConstant,
         EulerGamma as _EulerGamma,
         Catalan as _Catalan,
+        EMinus1 as _EMinus1,
         Infinity as _Infinity,
         NegativeInfinity as _NegativeInfinity,
         ComplexInfinity as _ComplexInfinity,
@@ -128,6 +129,7 @@ class SingletonRegistry(Registry):
     TribonacciConstant: _TribonacciConstant
     EulerGamma: _EulerGamma
     Catalan: _Catalan
+    EMinus1: _EMinus1
     Infinity: _Infinity
     NegativeInfinity: _NegativeInfinity
     ComplexInfinity: _ComplexInfinity

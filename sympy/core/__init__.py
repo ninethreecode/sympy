@@ -38,6 +38,7 @@ Catalan = S.Catalan
 EulerGamma = S.EulerGamma
 GoldenRatio = S.GoldenRatio
 TribonacciConstant = S.TribonacciConstant
+EMinus1 = S.EMinus1
 
 __all__ = [
     'sympify', 'SympifyError',
@@ -94,6 +95,7 @@ __all__ = [
     'EulerGamma',
     'GoldenRatio',
     'TribonacciConstant',
+    'EMinus1',
 
     'UndefinedKind', 'NumberKind', 'BooleanKind',
 

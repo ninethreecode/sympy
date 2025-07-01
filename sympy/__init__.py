@@ -64,7 +64,7 @@ from .core import (sympify, SympifyError, cacheit, Basic, Atom,
         expand_func, expand_trig, expand_complex, expand_multinomial, nfloat,
         expand_power_base, expand_power_exp, arity, PrecisionExhausted, N,
         evalf, Tuple, Dict, gcd_terms, factor_terms, factor_nc, evaluate,
-        Catalan, EulerGamma, GoldenRatio, TribonacciConstant, bottom_up, use,
+        Catalan, EulerGamma, GoldenRatio, TribonacciConstant, EMinus1, bottom_up, use,
         postorder_traversal, default_sort_key, ordered, num_digits)
 
 from .logic import (to_cnf, to_dnf, to_nnf, And, Or, Not, Xor, Nand, Nor,
@@ -280,7 +280,7 @@ __all__ = [
     'expand_complex', 'expand_multinomial', 'nfloat', 'expand_power_base',
     'expand_power_exp', 'arity', 'PrecisionExhausted', 'N', 'evalf', 'Tuple',
     'Dict', 'gcd_terms', 'factor_terms', 'factor_nc', 'evaluate', 'Catalan',
-    'EulerGamma', 'GoldenRatio', 'TribonacciConstant', 'bottom_up', 'use',
+    'EulerGamma', 'GoldenRatio', 'TribonacciConstant', 'EMinus1', 'bottom_up', 'use',
     'postorder_traversal', 'default_sort_key', 'ordered', 'num_digits',
 
     # sympy.logic

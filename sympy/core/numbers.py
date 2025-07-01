@@ -4072,6 +4072,62 @@ class Catalan(NumberSymbol, metaclass=Singleton):
         return "G"
 
 
+class EMinus1(NumberSymbol, metaclass=Singleton):
+    r"""The `e - 1` constant.
+
+    Explanation
+    ===========
+
+    The transcendental number `e - 1 = 1.718281828\ldots`
+
+    EMinus1 is a singleton, and can be accessed by ``S.EMinus1``.
+
+    References
+    ==========
+
+    .. [1] https://en.wikipedia.org/wiki/E_%28mathematical_constant%29
+    """
+
+    is_real = True
+    is_positive = True
+    is_negative = False
+    is_irrational = True
+    is_number = True
+    is_algebraic = False
+    is_transcendental = True
+
+    __slots__ = ()
+
+    def _latex(self, printer):
+        return r"e_{-1}"
+
+    @staticmethod
+    def __abs__():
+        return S.EMinus1
+
+    def __int__(self):
+        return 1
+
+    def _as_mpf_val(self, prec):
+        # mpf_e returns mpf tuple for e
+        # mpf_sub subtracts 1 from e
+        e_val = mpf_e(prec)
+        one_val = mlib.from_int(1, prec) # mpf tuple for 1
+        return mlib.mpf_sub(e_val, one_val, prec, rnd)
+
+    def _eval_expand_func(self, **hints):
+        return S.Exp1 - S.One
+
+    def approximation_interval(self, number_cls):
+        if issubclass(number_cls, Integer):
+            return (S.One, Integer(2))
+        elif issubclass(number_cls, Rational):
+            # Using simple continued fraction convergents for e-1
+            # [1; 1, 2, 1, 1, 4, 1, 1, 6, ...]
+            # First few convergents: 1, 2, 5/3, 7/4, 12/7, 55/32
+            return (Rational(12, 7), Rational(55, 32))
+
+
 class ImaginaryUnit(AtomicExpr, metaclass=Singleton):
     r"""The imaginary unit, `i = \sqrt{-1}`.
 

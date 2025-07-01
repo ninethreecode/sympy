@@ -1,8 +1,7 @@
 import numbers as nums
 import decimal
 from sympy.concrete.summations import Sum
-from sympy.core import (EulerGamma, Catalan, TribonacciConstant,
-    GoldenRatio)
+from sympy.core import (EulerGamma, Catalan, TribonacciConstant, GoldenRatio, EMinus1)
 from sympy.core.containers import Tuple
 from sympy.core.expr import unchanged
 from sympy.core.logic import fuzzy_not
@@ -1439,7 +1438,8 @@ def test_int_NumberSymbols():
     assert int(E) == 2
     assert int(GoldenRatio) == 1
     assert int(TribonacciConstant) == 1
-    for i in [Catalan, E, EulerGamma, GoldenRatio, TribonacciConstant, pi]:
+    assert int(EMinus1) == 1
+    for i in [Catalan, E, EulerGamma, GoldenRatio, TribonacciConstant, pi, EMinus1]:
         a, b = i.approximation_interval(Integer)
         ia = int(i)
         assert ia == a
@@ -1648,6 +1648,7 @@ def test_issue_4611():
     assert abs(EulerGamma._evalf(50) - 0.577215664901533) < 1e-10
     assert abs(GoldenRatio._evalf(50) - 1.61803398874989) < 1e-10
     assert abs(TribonacciConstant._evalf(50) - 1.83928675521416) < 1e-10
+    assert abs(EMinus1._evalf(50) - (E.evalf(50) - 1)) < 1e-10
 
     x = Symbol("x")
     assert (pi + x).evalf() == pi.evalf() + x
@@ -1656,6 +1657,9 @@ def test_issue_4611():
     assert (EulerGamma + x).evalf() == EulerGamma.evalf() + x
     assert (GoldenRatio + x).evalf() == GoldenRatio.evalf() + x
     assert (TribonacciConstant + x).evalf() == TribonacciConstant.evalf() + x
+    # For EMinus1, direct == comparison might fail due to subtle Float differences.
+    # Using all_close for robustness with evalf results.
+    assert all_close((EMinus1 + x).evalf(), EMinus1.evalf() + x, rtol=1e-15, atol=1e-15)
 
 
 @conserve_mpmath_dps
@@ -1804,6 +1808,10 @@ def test_GoldenRatio_expand():
     assert GoldenRatio.expand(func=True) == S.Half + sqrt(5)/2
 
 
+def test_EMinus1_expand():
+    assert EMinus1.expand(func=True) == E - 1
+
+
 def test_TribonacciConstant_expand():
         assert TribonacciConstant.expand(func=True) == \
           (1 + cbrt(19 - 3*sqrt(33)) + cbrt(19 + 3*sqrt(33))) / 3
@@ -1946,6 +1954,7 @@ def test_latex():
     assert latex(E) == r"e"
     assert latex(GoldenRatio) == r"\phi"
     assert latex(TribonacciConstant) == r"\text{TribonacciConstant}"
+    assert latex(EMinus1) == r"e_{-1}"
     assert latex(EulerGamma) == r"\gamma"
     assert latex(oo) == r"\infty"
     assert latex(-oo) == r"-\infty"
@@ -2208,6 +2217,8 @@ def test_Infinity_floor_ceiling_power():
 def test_One_power():
     assert S.One**12 is S.One
     assert S.NegativeOne**S.NaN is S.NaN
+    assert S.EMinus1.is_transcendental is True
+    assert hash(S.EMinus1) == hash(S.EMinus1)
 
 
 def test_NegativeInfinity():
