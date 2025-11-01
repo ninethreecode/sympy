@@ -1,6 +1,6 @@
 """Test sparse rational functions. """
 
-from sympy.polys.fields import field, sfield, FracField, FracElement
+from sympy.polys.fields import field, sfield, FracField, FracElement, golden_field
 from sympy.polys.rings import ring
 from sympy.polys.domains import ZZ, QQ
 from sympy.polys.orderings import lex
@@ -351,3 +351,25 @@ def test_FracField_index():
     raises(ValueError, lambda: F.index(1))
     raises(ValueError, lambda: F.index(a))
     pass
+
+def test_GoldenField():
+    F = golden_field()
+    phi = F.unit
+
+    # Test addition
+    assert phi + 1 == phi + 1
+    assert phi + phi == 2*phi
+    assert (1 + phi) + (1 + phi) == 2 + 2*phi
+
+    # Test subtraction
+    assert phi - 1 == phi - 1
+    assert phi - phi == F(0)
+    assert (1 + phi) - (1 + phi) == F(0)
+
+    # Test multiplication
+    assert phi * phi == phi + 1
+    assert (1 + phi) * (1 + phi) == 2 + 3*phi
+
+    # Test division
+    assert phi / phi == F(1)
+    assert (phi + 1) / phi == phi

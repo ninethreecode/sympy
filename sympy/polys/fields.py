@@ -16,6 +16,7 @@ from sympy.polys.domains.domain import Domain
 from sympy.polys.domains.domainelement import DomainElement
 from sympy.polys.domains.fractionfield import FractionField
 from sympy.polys.domains.polynomialring import PolynomialRing
+from sympy.polys.domains.algebraicfield import AlgebraicField
 from sympy.polys.constructor import construct_domain
 from sympy.polys.orderings import lex, MonomialOrder
 from sympy.polys.polyerrors import CoercionFailed
@@ -637,3 +638,17 @@ class FracElement(DomainElement, DefaultPrinting, CantSympify):
 
     def compose(f, x, a=None):
         raise NotImplementedError
+
+@public
+def golden_field():
+    """Construct the Golden Field."""
+    return GoldenField()
+
+class GoldenField(AlgebraicField):
+    """
+    A class representing the Golden Field of Integers.
+    """
+    def __init__(self):
+        from sympy.polys.domains import QQ
+        from sympy.core import S, Symbol
+        super().__init__(QQ, S.GoldenRatio, alias=Symbol('phi'))

@@ -62,7 +62,7 @@ __all__ = [
 
     'ring', 'xring', 'vring', 'sring',
 
-    'field', 'xfield', 'vfield', 'sfield'
+    'field', 'xfield', 'vfield', 'sfield', 'golden_field'
 ]
 
 from .polytools import (Poly, PurePoly, poly_from_expr,
@@ -127,4 +127,4 @@ from .polyoptions import Options
 
 from .rings import ring, xring, vring, sring
 
-from .fields import field, xfield, vfield, sfield
+from .fields import field, xfield, vfield, sfield, golden_field
