@@ -652,3 +652,6 @@ class GoldenField(AlgebraicField):
         from sympy.polys.domains import QQ
         from sympy.core import S, Symbol
         super().__init__(QQ, S.GoldenRatio, alias=Symbol('phi'))
+
+    def __str__(self):
+        return f"{self.rep[1]} + {self.rep[0]}*phi"
